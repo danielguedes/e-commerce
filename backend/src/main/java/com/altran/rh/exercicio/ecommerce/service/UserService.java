@@ -48,7 +48,6 @@ public class UserService {
 		if (userRepository.findByEmail(email).isPresent()) {
 			throw new BadRequestException();
 		}
-//		return userRepository.findByEmail(email).orElseThrow(NotFoundException::new);
 	}
 
 	private void normalize(User user) {
