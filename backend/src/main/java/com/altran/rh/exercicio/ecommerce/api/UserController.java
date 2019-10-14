@@ -31,10 +31,6 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody User addUser(@Valid @RequestBody User user) {
 		return userService.create(user);
-//		
-//				.map(u -> ResponseEntity.ok(u))
-//				.defaultIfEmpty(ResponseEntity.notFound().build())
-//				.onErrorReturn(ResponseEntity.badRequest().build());
 	}
 
 	@GetMapping()
@@ -42,22 +38,9 @@ public class UserController {
 		return userService.getAll();
 	}
 
-//	@GetMapping()
-//	public @ResponseBody Flux<ResponseEntity<User>> getAllItems() {
-//		return userService.getAllItems().concatMap(v -> new ResponseEntity<User>(v, HttpStatus.OK));
-//	}
-
-//	@GetMapping()
-//	public @ResponseBody ResponseEntity<Flux<User>> getAllItems() {
-//		return ResponseEntity.ok(userService.getAllItems());
-//	}
-
 	@GetMapping("/{id}")
 	public @ResponseBody User getById(@PathVariable String id) {
 		return userService.getById(id);
-//				.map(user -> ResponseEntity.ok(user))
-//				.defaultIfEmpty(ResponseEntity.notFound().build())
-//				.onErrorReturn(ResponseEntity.badRequest().build());
 	}
 
 	@PutMapping("/{id}")
@@ -74,10 +57,6 @@ public class UserController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public @ResponseBody void validateInexistentUser(@PathVariable String email) {
 		userService.validateInexistentUser(email);
-		
-//				.map(user -> new ResponseEntity<>((User) null, HttpStatus.BAD_REQUEST)) // TODO Responder badRequest ou outro status
-//				.defaultIfEmpty(ResponseEntity.ok().build())
-//				.onErrorReturn(ResponseEntity.badRequest().build());
 	}
 
 }

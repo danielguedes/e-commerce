@@ -24,16 +24,4 @@ public class CartController {
 		return cartService.updateByUser(authUser, cart);
 	}
 
-//	// TODO Remover
-//	@GetMapping()
-//	public @ResponseBody List<Cart> getAllItems() {
-//		return cartService.getAllItems();
-//	}
-//
-//	// TODO Remover
-//	@GetMapping("/{id}")
-//	public @ResponseBody Cart getById(@PathVariable String id) {
-//		return cartService.getById(id);
-//	}
-
 }
