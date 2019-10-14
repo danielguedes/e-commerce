@@ -1,0 +1,38 @@
+version: '3'
+services:
+  ecom-mongodb:
+    container_name: ecom-mongodb
+    image: mongo:3.6
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+  ecom-app:
+    build: ./backend
+    # image: ecom-app
+    working_dir: /backend
+    environment:
+      - SPRING_DATA_MONGODB_HOST=ecom-mongodb
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+      - 8443:8443
+    depends_on:
+      - ecom-mongodb
+
+  ecom-nginx:
+    container_name: ecom-nginx
+    image: nginx:1.13
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - ecom-app
