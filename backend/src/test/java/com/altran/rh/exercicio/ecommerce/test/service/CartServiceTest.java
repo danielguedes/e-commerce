@@ -23,6 +23,7 @@ import com.altran.rh.exercicio.ecommerce.model.Item;
 import com.altran.rh.exercicio.ecommerce.model.User;
 import com.altran.rh.exercicio.ecommerce.repository.CartRepository;
 import com.altran.rh.exercicio.ecommerce.service.CartService;
+import com.altran.rh.exercicio.ecommerce.vo.CartVO;
 
 @RunWith(SpringRunner.class)
 public class CartServiceTest {
@@ -66,13 +67,13 @@ public class CartServiceTest {
 		user.setEmail("daniel.guedes@gmail.com");
 		user.setName("Daniel Guedes");
 
-		item1.setId(DEFAULT_ITEM1_ID);
-		item1.setName("Product One");
-		item1.setValue(new Float(30.56));
+		item1.setId("5d9dee4c59f14777e33ca277");
+		item1.setName("Product Two");
+		item1.setValue(new Float(230.92));
 
-		item2.setId("5d9dee4c59f14777e33ca277");
-		item2.setName("Product Two");
-		item2.setValue(new Float(230.92));
+		item2.setId(DEFAULT_ITEM1_ID);
+		item2.setName("Product One");
+		item2.setValue(new Float(30.56));
 
 		cartItem1.setItem(item1);
 		cartItem1.setQty(3);
@@ -121,6 +122,14 @@ public class CartServiceTest {
 	public void whenUpdateWithDupliacteItemsThenExceptionShouldBeThrow() {
 		cart.getCartItems().set(1, cart.getCartItems().get(0));
 		cartService.updateByUser(user, cart);
+	}
+
+	public void whenGetCartThenCartVOShouldBeReturned() {
+		CartVO cartVO = cartService.getByUser(user);
+		assertThat(cartVO.getCartItems().get(0).getItem().getName().equals(item2.getName()));
+		assertThat(cartVO.getTotalItems() == 2);
+		assertThat(cartVO.getTotalItems() == 2);
+		assertThat(cartVO.getTotalValue() == 261.48f);
 	}
 
 }

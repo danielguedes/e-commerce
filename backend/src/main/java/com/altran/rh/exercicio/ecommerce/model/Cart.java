@@ -26,6 +26,8 @@ public class Cart {
 	@DBRef
 	@NotNull
 	private User user;
+	
+	private Float total;
 
 	@NotNull
 	private List<CartItem> cartItems;
